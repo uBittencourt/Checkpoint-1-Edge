@@ -7,6 +7,7 @@
 </h3>
 
 <p align="center">
+  <a href="#participantes">Participantes</a> |
   <a href="#objetivos">Objetivos</a> |
   <a href="#hardware-utilizado">Hardware Utilizado</a> |
   <a href="#funcionamento-do-codigo">Funcionamento do Código</a> |
@@ -15,6 +16,12 @@
 </p>
 
 ![tinkercad-checkpoint1](img/tinkercad_checkpoint1.png)
+
+## Participantes
+* João Henrique Sena Hoffmann (RM - 550763)
+* Lucas Ludovico Cabral (RM - 554589)
+* Vinicius Fernandes Tavares Bittencourt (RM - 558909)
+* Weslley Oliveira Cardoso (RM - 557927)
 
 ## Objetivos
 O objetivo deste projeto é capturar a iluminação ambiente no ambiente de armazenamento de vinhos e monitorar a qualidade com base nesse fator. A iluminação é um fator crítico na preservação da qualidade dos vinhos, e este sistema visa alertar os responsáveis quando a iluminação está abaixo dos níveis recomendados.
