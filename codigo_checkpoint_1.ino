@@ -6,6 +6,8 @@ int LDR = A0;      // Resistor LDR no pino A0
 int valueLDR;      // Iniciando variável do valor do LDR
 int buzzer = 11;   // Buzzer no pino 11
 int valueLight;    // Declarando variável do valor da luz em %
+int readings[5];   // Array para armazenar as últimas 5 leituras do LDR
+int index = 0;     // Índice atual do array
 
 void setup()
 {
@@ -22,20 +24,31 @@ void setup()
 
 void loop()
 { 
-  valueLDR = analogRead(LDR); // Lendo valores do LDR
-  valueLight = map(valueLDR, 182, 969, 0, 100); // Transformando valores da medição do LDR em pocentagem
+  // Lendo valores do LDR e armazenando no array
+  readings[index] = analogRead(LDR);
+  index = (index + 1) % 5; // Atualiza o índice circularmente
+
+  // Calculando a média das últimas 5 leituras
+  int sum = 0;
+  for (int i = 0; i < 5; i++) {
+    sum += readings[i];
+  }
+  valueLDR = sum / 5;
+
+  // Transformando valores da medição do LDR em porcentagem
+  valueLight = map(valueLDR, 54, 960, 0, 100);
   Serial.println(valueLight); // Apresendo  valor da luz em % na tela
   
   // Estrutura condicional para acender os LEDs e tocar o buzzer
-  if(valueLight >= 50){
+  if(valueLight <= 65){
     
-    // Iluminação com até 50% do recomendado, LED verde ligado
-  	digitalWrite(ledGreen, HIGH);
+    // Iluminação abaixo de 65%, LED verde ligado
+    digitalWrite(ledGreen, HIGH);
     
-  } else if(valueLight < 50 && valueLight >= 10){
+  } else if(valueLight > 65 && valueLight <= 90){
     
-    // Iluminação entre 50% e 10% do recomendado, LED amarelo ligado
-  	digitalWrite(ledYellow, HIGH);
+    // Iluminação entre 65% e 90%, LED amarelo ligado
+    digitalWrite(ledYellow, HIGH);
     
     for(int x=1; x <= 3; x++){
       // Laço de repetição para dar pequenos toques com buzzer
@@ -47,8 +60,8 @@ void loop()
     
   } else{
     
-    // Iluminação abaixo de 10% do recomendado, LED vermelho ligado
-  	digitalWrite(ledRed, HIGH);
+    // Iluminação acima de 90%, LED vermelho ligado
+    digitalWrite(ledRed, HIGH);
     
     // Buzzer tocando iinterruptamente por 3 segundos
     digitalWrite(buzzer, HIGH);
